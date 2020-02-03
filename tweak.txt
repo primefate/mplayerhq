@@ -1,0 +1,42 @@
+SET PATH=C:\portable\Git\cmd;C:\portable\Subversion\bin;%PATH%
+CD C:\portable\mplayerhq\
+./configure --disable-mencoder --disable-ffmpeg_so --disable-win32dll --disable-avx2 --disable-xop --disable-fma3 --disable-fma4 --disable-tv --charset=UTF-8 --extra-ldflags=-static --disable-postproc --enable-gl --disable-win32waveout
+
+sed -e '/_MUXER/s/1$/0/' -i config.h
+sed -e '/_MUXER/s/yes$/no/' -i config.mak
+sed -e '\|_muxer|s|^|//|' -i ffmpeg/libavformat/muxer_list.c
+
+sed -e '/_PARSER/s/0$/1/' -i  config.h
+sed -e '/_PARSER/s/$no/yes/' -i config.mak
+sed -e '\|_parser|s|^|//|' -i ffmpeg/libavcodec/parser_list.c
+
+sed -e '/_DECODER/s/yes$/no/' -i config.mak
+sed -f decoder-mak -i config.mak
+
+sed -e '/_DECODER/s/1$/0/' -i config.h
+sed -f decoder-h -i config.h
+
+sed -e '\|_decoder|s|^|//|' -i ffmpeg/libavcodec/codec_list.c
+sed -f decoder-c -i ffmpeg/libavcodec/codec_list.c
+
+sed -e '\|_demuxer|s|^|//|' -i ffmpeg/libavformat/demuxer_list.c
+sed -f demuxer-c -i ffmpeg/libavformat/demuxer_list.c
+
+sed -e '/_DEMUXER/s/1$/0/' -i config.h
+sed -f demuxer-h -i config.h
+
+sed -e '/_DEMUXER/s/yes$/no/' -i config.mak
+sed -f demuxer-mak -i config.mak
+
+./configure --enable-gpl --enable-version3 --enable-static --disable-shared --disable-programs --disable-doc --disable-network --disable-encoders --enable-hwaccels --disable-devices --disable-muxers --disable-parsers --disable-bsfs --disable-filters --disable-avx2 --disable-avx512 --disable-fma3 --disable-fma4 --disable-xop --disable-decoders --disable-protocols  --enable-protocol=file --disable-demuxers --enable-demuxer=aac --enable-demuxer=ape --enable-demuxer=flac --enable-demuxer=flv --enable-demuxer=matroska --enable-demuxer=mp3 --enable-demuxer=mov --enable-demuxer=wav --disable-iconv --disable-schannel --disable-xlib --disable-zlib
+
+FOR %a IN (avcodec avdevice avfilter avformat avutil postproc swresample swscale) DO COPY /B /Y C:\portable\mplayerhq\ffmpeg\lib%a\lib%a.a C:\portable\msys64\usr\local\lib\ /B
+
+SET PATH=C:\portable\python;C:\portable\msys64\usr\bin;C:\portable\msys64\mingw64\bin;%PATH%
+CD C:\portable\mpv-0.29.1
+python bootstrap.py
+python waf configure CC=gcc.exe --check-c-compiler=gcc --disable-libass --disable-manpage-build --disable-html-build --enable-lgpl --disable-debug-build --enable-d3d11
+python waf build
+
+pacman -Syu
+pacman -Su

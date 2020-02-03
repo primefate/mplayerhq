@@ -1,0 +1,16 @@
+/CONFIG_AAC_DEMUXER/s/no$/yes/
+/CONFIG_APE_DEMUXER/s/no$/yes/
+/CONFIG_AVI_DEMUXER/s/no$/yes/
+/CONFIG_FLAC_DEMUXER/s/no$/yes/
+/CONFIG_FLV_DEMUXER/s/no$/yes/
+/CONFIG_H26[134]_DEMUXER/s/no$/yes/
+/CONFIG_HEVC_DEMUXER/s/no$/yes/
+/CONFIG_ISO_MEDIA/s/no$/yes/
+/CONFIG_M4V_DEMUXER/s/no$/yes/
+/CONFIG_MATROSKA_DEMUXER/s/no$/yes/
+/CONFIG_MOV_DEMUXER/s/no$/yes/
+/CONFIG_MP3_DEMUXER/s/no$/yes/
+/CONFIG_MPEG[^_]*_DEMUXER/s/no$/yes/
+/CONFIG_OGG_DEMUXER/s/no$/yes/
+/CONFIG_PCM_[^_]*_DEMUXER/s/no$/yes/
+/CONFIG_WAV_DEMUXER/s/no$/yes/
