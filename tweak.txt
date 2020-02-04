@@ -1,6 +1,6 @@
 SET PATH=C:\portable\Git\cmd;C:\portable\Subversion\bin;%PATH%
 CD C:\portable\mplayerhq\
-./configure --disable-mencoder --disable-ffmpeg_so --disable-win32dll --disable-avx2 --disable-xop --disable-fma3 --disable-fma4 --disable-tv --charset=UTF-8 --extra-ldflags=-static --disable-postproc --enable-gl --disable-win32waveout
+./configure --disable-mencoder --disable-ffmpeg_a --disable-win32dll --disable-avx2 --disable-xop --disable-fma3 --disable-fma4 --disable-tv --charset=UTF-8 --extra-ldflags=-static --disable-postproc --enable-gl --disable-win32waveout
 
 sed -e '/_MUXER/s/1$/0/' -i config.h
 sed -e '/_MUXER/s/yes$/no/' -i config.mak
